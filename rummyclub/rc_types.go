@@ -2,7 +2,7 @@ package rummyclub
 
 import "fmt"
 
-type SuitT int
+type SuitT int16
 
 const (
 	YELLOW SuitT = iota
@@ -14,7 +14,7 @@ const (
 
 type Card struct {
 	Suit SuitT
-	Rank int
+	Rank int16
 }
 
 func (card Card) String() string {
@@ -42,4 +42,22 @@ func (card Card) String() string {
 	}
 
 	return fmt.Sprintf("%s%s%d", suitChar, padChar, card.Rank)
+}
+
+func MakeDeck() []Card {
+	res := make([]Card, 54)
+	index := 0
+	for suit := YELLOW; suit < WILD; suit++ {
+		for rank := 1; rank < 14; rank++ {
+			res[index].Suit = suit
+			res[index].Rank = int16(rank)
+			index++
+		}
+	}
+	res[index].Suit = WILD
+	index++
+	res[index].Suit = WILD
+	index++
+
+	return res
 }
