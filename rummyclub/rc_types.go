@@ -48,13 +48,15 @@ func (card Card) String() string {
 }
 
 func MakeDeck() []Card {
-	res := make([]Card, 54)
+	res := make([]Card, 106)
 	index := 0
 	for suit := YELLOW; suit < WILD; suit++ {
-		for rank := 1; rank < 14; rank++ {
-			res[index].Suit = suit
-			res[index].Rank = int16(rank)
-			index++
+		for ignore := 0; ignore < 2; ignore++ {
+			for rank := 1; rank < 14; rank++ {
+				res[index].Suit = suit
+				res[index].Rank = int16(rank)
+				index++
+			}
 		}
 	}
 	res[index].Suit = WILD
