@@ -9,39 +9,41 @@ type setCounter struct {
 
 func FindSets(hand []Card) []int {
 	res := make([]int, 0)
-	setsFound := setCounter{}
+	allSetsFound := setCounter{}
 
+	// find
 	for cardIndex, card := range hand {
 		for index := 0; index < 27; index++ {
-			if setsFound.rank[index] == 0 {
-				setsFound.rank[index] = card.Rank
-				setsFound.suits[index][card.Suit] = true
-				setsFound.indexes[index][0] = cardIndex
+			if allSetsFound.rank[index] == 0 {
+				allSetsFound.rank[index] = card.Rank
+				allSetsFound.suits[index][card.Suit] = true
+				allSetsFound.indexes[index][0] = cardIndex
 				break
 			} else {
-				if setsFound.rank[index] == card.Rank {
-					setsFound.suits[index][card.Suit] = true
-					setsFound.found[index]++
-					setsFound.indexes[index][setsFound.found[index]] = cardIndex
+				if allSetsFound.rank[index] == card.Rank {
+					allSetsFound.suits[index][card.Suit] = true
+					allSetsFound.found[index]++
+					allSetsFound.indexes[index][allSetsFound.found[index]] = cardIndex
 					break
 				}
 			}
 		}
 	}
 
+	// copy actual sets
 	for index := 0; index < 27; index++ {
-		if setsFound.rank[index] != 0 {
+		if allSetsFound.rank[index] != 0 {
 			count := 0
 			for boolIndex := 0; boolIndex < 4; boolIndex++ {
-				if setsFound.suits[index][boolIndex] {
+				if allSetsFound.suits[index][boolIndex] {
 					count++
 				}
 			}
 
 			if count > 2 {
 				for boolIndex := 0; boolIndex < 4; boolIndex++ {
-					if setsFound.suits[index][boolIndex] {
-						res = append(res, setsFound.indexes[index][boolIndex])
+					if allSetsFound.suits[index][boolIndex] {
+						res = append(res, allSetsFound.indexes[index][boolIndex])
 					}
 				}
 			}
