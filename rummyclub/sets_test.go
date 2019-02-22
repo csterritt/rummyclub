@@ -2,6 +2,8 @@ package rummyclub
 
 import (
 	"testing"
+
+	"github.com/go-test/deep"
 )
 
 func TestFindNoSets(t *testing.T) {
@@ -24,8 +26,8 @@ func TestFindThreeCardSet(t *testing.T) {
 	if len(sets) != 3 {
 		t.Errorf("One-sets cards (%v) found %d sets.\n", hand, len(sets))
 	}
-	correctIndexes := sets[0] == 0 && sets[1] == 1 && sets[2] == 2
-	if !correctIndexes {
+	correctIndexes := []int{0, 1, 2}
+	if diff := deep.Equal(sets, correctIndexes); diff != nil {
 		t.Errorf("One-sets cards (%v) found wrong indexes (%v).\n", hand, sets)
 	}
 }
@@ -57,9 +59,8 @@ func TestFindSevenCardSet(t *testing.T) {
 	if len(sets) != 7 {
 		t.Errorf("Two-sets cards (%v) found %d sets.\n", hand, len(sets))
 	}
-	correctIndexes := sets[0] == 0 && sets[1] == 2 && sets[2] == 4 &&
-		sets[3] == 1 && sets[4] == 3 && sets[5] == 5 && sets[6] == 6
-	if !correctIndexes {
+	correctIndexes := []int{0, 2, 4, 1, 3, 5, 6}
+	if diff := deep.Equal(sets, correctIndexes); diff != nil {
 		t.Errorf("One-sets cards (%v) found wrong indexes (%v).\n", hand, sets)
 	}
 }

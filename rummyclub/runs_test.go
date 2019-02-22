@@ -2,6 +2,8 @@ package rummyclub
 
 import (
 	"testing"
+
+	"github.com/go-test/deep"
 )
 
 func TestFindNoRuns(t *testing.T) {
@@ -45,6 +47,10 @@ func TestFindOneRun(t *testing.T) {
 	if len(runs) != 3 {
 		t.Errorf("One-runs cards found %d runs.\n", len(runs))
 	}
+	correctIndexes := []int{0, 1, 2}
+	if diff := deep.Equal(runs, correctIndexes); diff != nil {
+		t.Errorf("One-runs cards (%v) found wrong indexes (%v).\n", hand, runs)
+	}
 }
 
 func TestFindTwoRuns(t *testing.T) {
@@ -57,5 +63,9 @@ func TestFindTwoRuns(t *testing.T) {
 	runs := FindRuns(hand)
 	if len(runs) != 7 {
 		t.Errorf("Two-runs cards found %d runs (%v).\n", len(runs), runs)
+	}
+	correctIndexes := []int{1, 2, 3, 4, 5, 6, 7}
+	if diff := deep.Equal(runs, correctIndexes); diff != nil {
+		t.Errorf("One-runs cards (%v) found wrong indexes (%v).\n", hand, runs)
 	}
 }
