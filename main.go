@@ -21,4 +21,30 @@ func main() {
 		fmt.Printf("%s   ", card)
 	}
 	fmt.Println()
+
+	runs := rummyclub.FindRuns(hand)
+	if len(runs) > 0 {
+		fmt.Print("  Runs: (")
+		for _, index := range runs {
+			fmt.Print(index, " ")
+		}
+		fmt.Print(") ")
+		for _, index := range runs {
+			fmt.Print(hand[index], " ")
+		}
+		fmt.Println()
+	}
+
+	sets := rummyclub.FindSets(hand)
+	if len(sets) > 0 {
+		fmt.Print("  Sets: (")
+		for _, index := range sets {
+			fmt.Print(index, " ")
+		}
+		fmt.Print(") ")
+		for _, index := range sets {
+			fmt.Print(hand[index], " ")
+		}
+		fmt.Println()
+	}
 }
