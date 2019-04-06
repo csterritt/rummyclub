@@ -12,6 +12,7 @@ const (
 	RED
 	BLACK
 	WILD
+	SUIT_COUNT
 )
 
 type Card struct {
